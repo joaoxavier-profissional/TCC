@@ -17,3 +17,8 @@ videos/
 # Arquivos sensíveis
 .env
 .env.*
+
+#arquivos testes
+app_backup.py
+teste_player_personalizado.py
+LEIA_ME.txt

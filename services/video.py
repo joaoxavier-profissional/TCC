@@ -90,3 +90,21 @@ def mostrar_video(nome, inicio='00:00:00'):
         st.video(str(caminho), start_time=segundos(inicio))
     except ValueError:
         st.error('Horário do evento inválido.')
+
+
+def obter_duracao_video(caminho):
+    captura = cv2.VideoCapture(str(caminho))
+
+    if not captura.isOpened():
+        captura.release()
+        return 0
+
+    fps = captura.get(cv2.CAP_PROP_FPS)
+    total_frames = captura.get(cv2.CAP_PROP_FRAME_COUNT)
+
+    captura.release()
+
+    if fps <= 0:
+        return 0
+
+    return total_frames / fps

@@ -1,0 +1,212 @@
+
+/* ==========================================
+   PLAYER PERSONALIZADO — CFTV
+   ========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #080e18;
+    font-family: Arial, sans-serif;
+}
+
+/* Área principal do player */
+
+.player {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #03060b;
+    border-radius: 10px;
+}
+
+/* Vídeo */
+
+.player video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Nome da gravação */
+
+.titulo {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 7px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+/* Controles sobrepostos ao vídeo */
+
+.controles {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    padding: 15px;
+    color: #ffffff;
+    background: linear-gradient(
+        transparent,
+        rgba(0, 0, 0, 0.9)
+    );
+}
+
+/* Barra de progresso */
+
+.progresso {
+    display: block;
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+    accent-color: #28d4bd;
+}
+
+/* Linha de botões */
+
+.botoes {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+/* Botões do player */
+
+.botoes button {
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.botoes button:hover {
+    color: #28d4bd;
+}
+
+/* Relógio do vídeo */
+
+.tempo {
+    font-size: 12px;
+    color: #d6e2ed;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Empurra tela cheia para a direita */
+
+.espaco {
+    flex: 1;
+}
+
+/* Player em tela cheia */
+
+.player:fullscreen {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+
+
+/* ==========================================
+   MARCAÇÕES DOS EVENTOS NA LINHA DO TEMPO
+   ========================================== */
+
+.area-progresso {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+
+/* Camada que contém os eventos detectados */
+
+.marcacoes {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Faixa de cada evento */
+
+.marcacao-evento {
+    position: absolute;
+    top: 2px;
+    height: 8px;
+    min-width: 4px;
+    border: none;
+    border-radius: 3px;
+    padding: 0;
+    opacity: 0.95;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: filter 0.15s, opacity 0.15s;
+}
+
+.marcacao-evento:hover {
+    filter: brightness(1.25);
+    opacity: 1;
+}
+
+/* Barra de progresso permanece interativa */
+
+.area-progresso .progresso {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    margin: 0;
+}
+
+
+/* ==========================================
+   LEGENDA DAS DETECÇÕES
+   ========================================== */
+
+.legenda-eventos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.legenda-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 5px 9px;
+    border-radius: 5px;
+
+    background: rgba(5, 12, 22, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    color: #e5edf5;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.legenda-cor {
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
+    border-radius: 3px;
+}

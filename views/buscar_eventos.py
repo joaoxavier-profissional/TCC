@@ -1,37 +1,108 @@
 """Pesquisa de detecções com filtros temporais e reprodução."""
 import streamlit as st
+
 from services.busca import filtrar_eventos
-from services.video import mostrar_video
+from services.video import caminho_video
+from components.player import mostrar_player
+
+
 
 
 @st.fragment
 def _painel_resultados(resultados):
-    """Atualiza seleção e reprodutor sem reinicializar os filtros."""
-    coluna_lista, coluna_video = st.columns([1, 1.45], gap="medium")
+    """Exibe os resultados e o player com detecções."""
+
+    coluna_lista, coluna_video = st.columns(
+        [1, 1.45],
+        gap="medium"
+    )
+
+    # ==========================================
+    # COLUNA ESQUERDA — RESULTADOS
+    # ==========================================
+
     with coluna_lista:
         st.markdown("**Resultados da pesquisa**")
-        with st.container(key="resultados_rolagem", border=False):
+
+        with st.container(
+            key="resultados_rolagem",
+            border=False
+        ):
             if not resultados:
-                st.info("Nenhum evento encontrado. Tente ampliar os filtros.")
+                st.info(
+                    "Nenhum evento encontrado. "
+                    "Tente ampliar os filtros."
+                )
+
             for i, (video, classe, inicio, fim) in enumerate(resultados):
                 with st.container(border=True):
                     texto, botao = st.columns([3, 1])
+
                     with texto:
                         st.markdown(f"**{classe.capitalize()}**")
-                        st.caption(f"{video} | {inicio} até {fim}")
+                        st.caption(
+                            f"{video} | {inicio} até {fim}"
+                        )
+
                     with botao:
-                        if st.button("▶", key=f"evento_{i}", help="Assistir ao evento"):
+                        if st.button(
+                            "▶",
+                            key=f"evento_{i}",
+                            help="Assistir ao evento"
+                        ):
                             st.session_state.evento_ativo = i
                             st.rerun(scope="fragment")
+
+    # ==========================================
+    # COLUNA DIREITA — PLAYER PERSONALIZADO
+    # ==========================================
+
     with coluna_video:
         st.markdown("**Reprodução do evento**")
-        indice = st.session_state.evento_ativo
-        if indice is not None and 0 <= indice < len(resultados):
+
+        indice = st.session_state.get("evento_ativo")
+
+        if (
+            indice is not None
+            and 0 <= indice < len(resultados)
+        ):
             video, classe, inicio, fim = resultados[indice]
-            mostrar_video(video, inicio)
-            st.caption(f"🎞️ {video} | {classe.capitalize()} | {inicio} até {fim}")
+
+            # Caminho do arquivo MP4
+            caminho = caminho_video(video)
+
+            # Eventos da pesquisa referentes a este vídeo
+            eventos_do_video = [
+                evento
+                for evento in resultados
+                if evento[0] == video
+            ]
+
+            # Player com controles e marcações integradas
+            funcionou = mostrar_player(
+                caminho_video=caminho,
+                inicio=inicio,
+                eventos=eventos_do_video
+            )
+
+            if not funcionou:
+                st.warning(
+                    f"Vídeo não encontrado: {video}"
+                )
+
+            st.caption(
+                f"🎞️ {video} | "
+                f"{classe.capitalize()} | "
+                f"{inicio} até {fim}"
+            )
+
         else:
-            st.info("Selecione um evento à esquerda para assistir à gravação.")
+            st.info(
+                "Selecione um evento à esquerda "
+                "para assistir à gravação."
+            )
+
+
 
 
 def mostrar_busca(eventos, classes, nomes_indexados):
