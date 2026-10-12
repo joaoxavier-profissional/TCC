@@ -1,0 +1,395 @@
+/* ==================================================
+
+   REMOVER BARRA SUPERIOR DO STREAMLIT
+
+   ================================================== */
+
+/* Remove completamente o cabeçalho superior */
+
+[data-testid="stHeader"] {
+
+    display: none !important;
+
+}
+
+/* Remove a barra de ferramentas, incluindo Deploy */
+
+[data-testid="stToolbar"] {
+
+    display: none !important;
+
+}
+
+/* Remove o espaço superior reservado ao cabeçalho */
+
+[data-testid="stMainBlockContainer"] {
+
+    padding-top: 1rem !important;
+
+}
+
+/* ==================================================
+
+   MANTER MENU LATERAL SEMPRE VISÍVEL
+
+   ================================================== */
+
+/* Mantém o menu aberto e com largura fixa */
+
+[data-testid="stSidebar"] {
+
+    display: block !important;
+
+    visibility: visible !important;
+
+    min-width: 265px !important;
+
+    max-width: 265px !important;
+
+    width: 265px !important;
+
+    transform: none !important;
+
+    background: var(--menu);
+
+    border-right: 1px solid #233344;
+
+}
+
+/* Mantém o conteúdo interno do menu na mesma largura */
+
+[data-testid="stSidebar"] > div:first-child {
+
+    width: 265px !important;
+
+}
+
+/* Esconde os botões de recolher e expandir o menu */
+
+[data-testid="stSidebarCollapseButton"],
+
+[data-testid="stSidebarCollapsedControl"],
+
+[data-testid="collapsedControl"] {
+
+    display: none !important;
+
+}
+
+/* Evita que o botão de recolher apareça ao passar o mouse */
+
+[data-testid="stSidebar"] button[aria-label*="sidebar" i] {
+
+    display: none !important;
+
+}
+
+:root {
+
+    --fundo: #0b111c;
+
+    --painel: #141f30;
+
+    --menu: #101a29;
+
+    --borda: #25434c;
+
+    --verde: #28d4bd;
+
+    --texto: #edf4fb;
+
+    --secundario: #98a9b9;
+
+}
+
+/* Fundo geral */
+
+.stApp {
+
+    background: var(--fundo);
+
+    color: var(--texto);
+
+}
+
+/* Menu lateral */
+
+[data-testid="stSidebar"] {
+
+    background: var(--menu);
+
+    border-right: 1px solid #233344;
+
+}
+
+/* Área principal */
+
+[data-testid="stMainBlockContainer"] {
+
+    max-width: 1600px;
+
+    padding: 1rem 1.7rem 2rem;
+
+}
+
+/* Títulos */
+
+h1, h2, h3, h4 {
+
+    color: var(--texto) !important;
+
+}
+
+h1 {
+
+    font-size: 2rem !important;
+
+    font-weight: 600 !important;
+
+}
+
+h3 {
+
+    font-size: 1.1rem !important;
+
+}
+
+/* Indicadores */
+
+[data-testid="stMetric"] {
+
+    background: var(--painel);
+
+    border: 1px solid var(--borda);
+
+    border-radius: 12px;
+
+    padding: 12px 16px;
+
+    min-height: 105px;
+
+}
+
+[data-testid="stMetricLabel"] {
+
+    color: var(--secundario);
+
+}
+
+[data-testid="stMetricValue"] {
+
+    color: var(--texto);
+
+    font-size: 1.7rem;
+
+}
+
+/* Bordas dos cartões */
+
+[data-testid="stVerticalBlockBorderWrapper"] > div {
+
+    border-color: var(--borda);
+
+}
+
+/* Botões principais */
+
+.stButton > button[kind="primary"] {
+
+    background: #0b9f90;
+
+    border-color: #0b9f90;
+
+    color: white;
+
+}
+
+.stButton > button[kind="primary"]:hover {
+
+    background: #087e73;
+
+    border-color: #087e73;
+
+}
+
+/* Tamanho do vídeo */
+
+[data-testid="stVideo"] {
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    background: #03060b;
+
+    border-radius: 8px;
+
+}
+
+[data-testid="stVideo"] video {
+
+    width: 100% !important;
+
+    height: 100% !important;
+
+    aspect-ratio: 16 / 9 !important;
+
+    object-fit: contain !important;
+
+    background: #03060b;
+
+}
+
+/* Miniaturas */
+
+[data-testid="stImage"] img {
+
+    border-radius: 8px;
+
+}
+
+/* Lista de resultados com rolagem própria */
+
+.st-key-resultados_rolagem {
+
+    max-height: 48vh;
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    padding-right: 0.3rem;
+
+}
+
+/* Espaçamento entre elementos */
+
+[data-testid="stVerticalBlock"] {
+
+    gap: 0.6rem;
+
+}
+
+/* Ajustes para telas mais baixas */
+
+@media (max-height: 800px) and (min-width: 769px) {
+
+    [data-testid="stMainBlockContainer"] {
+
+        padding-top: 0.35rem;
+
+    }
+
+    [data-testid="stVideo"] video {
+
+        max-height: 36vh !important;
+
+    }
+
+    .st-key-resultados_rolagem {
+
+        max-height: 40vh;
+
+    }
+
+}
+
+/* Ajustes para celular */
+
+@media (max-width: 768px) {
+
+    [data-testid="stMainBlockContainer"] {
+
+        padding: 0.6rem;
+
+    }
+
+    h1 {
+
+        font-size: 1.5rem !important;
+
+    }
+
+    [data-testid="stVideo"] video {
+
+        max-height: 34vh !important;
+
+    }
+
+}
+
+.titulo-video {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+    color: #edf4fb;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 24px;
+
+    margin-bottom: 0.5rem;
+
+}
+
+/* ==================================================
+   MENU LATERAL — PERSONALIZE AQUI
+   ================================================== */
+[data-testid="stSidebarHeader"] { display: none !important; }
+
+[data-testid="stSidebarContent"] {
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+}
+
+[data-testid="stSidebarUserContent"] {
+    height: 100% !important;
+    min-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* O Streamlit inclui uma div intermediária entre o conteúdo e o bloco. */
+[data-testid="stSidebarUserContent"] > div {
+    height: 100% !important;
+    min-height: 0 !important;
+}
+
+[data-testid="stSidebarUserContent"] > div > [data-testid="stVerticalBlock"] {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    gap: 0.6rem !important;
+}
+
+.st-key-sidebar_logo, .st-key-sidebar_menu { flex-shrink: 0; }
+.st-key-sidebar_logo { margin: 0 !important; }
+.st-key-sidebar_menu { margin-top: 0 !important; }
+
+/* Status no rodapé: seleciona o filho direto do Flexbox. */
+[data-testid="stSidebarUserContent"] > div > [data-testid="stVerticalBlock"]
+    > [data-testid="stLayoutWrapper"]:has(.st-key-sidebar_status),
+[data-testid="stSidebarUserContent"] > div > [data-testid="stVerticalBlock"]
+    > .st-key-sidebar_status {
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+}
+
+.st-key-sidebar_status { padding-bottom: 0 !important; }
+.st-key-sidebar_status [data-testid="stCaptionContainer"] { margin-bottom: 0 !important; }

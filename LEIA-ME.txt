@@ -1,0 +1,24 @@
+TCC CFTV — PROJETO REFATORADO
+
+1. Faça backup da sua pasta TCC_CFTV atual.
+2. Extraia este ZIP e copie os arquivos para sua pasta TCC_CFTV.
+3. MANTENHA seu cftv.db original na raiz e seus MP4 dentro de videos/.
+   Este ZIP NÃO inclui seu banco nem os vídeos.
+4. Ative seu ambiente virtual existente (venv).
+5. Na pasta TCC_CFTV, execute: streamlit run app.py
+
+ONDE EDITAR:
+- assets/style.css: cores, espaçamentos, Flexbox e painel lateral.
+- components/sidebar.py: logo, botões e status do banco.
+- components/cards.py: cartões dos vídeos.
+- pages/: cada uma das quatro telas.
+- services/banco.py: consultas SQLite.
+- services/video.py: miniaturas, lista de vídeos e reprodução.
+- services/config.py: caminhos de arquivos e pastas.
+
+Dependências mantidas: streamlit, opencv-python, pandas.
+A indexação original (indexar_video.py etc.) não foi alterada.
+
+OBSERVAÇÃO: o CSS usa seletores internos do Streamlit, que podem variar
+entre versões. Se o layout do rodapé mudar após atualizar o Streamlit,
+inspecione a estrutura HTML no F12.
