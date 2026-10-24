@@ -46,7 +46,7 @@ def _painel_resultados(resultados):
 
                     with botao:
                         if st.button(
-                            "Reproduzir",
+                            "Ver",
                             key=f"evento_{i}",
                             help="Assistir ao evento"
                         ):
