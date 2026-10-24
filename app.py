@@ -17,7 +17,6 @@ BASE = Path(__file__).resolve().parent
 
 st.set_page_config(
     page_title="CFTV | Central Inteligente",
-    page_icon="📹",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -64,10 +63,10 @@ if erro:
 
 # Indicadores visíveis em todas as páginas.
 a, b, c, d = st.columns(4)
-a.metric("📹 Vídeos indexados", len(nomes_indexados))
-b.metric("📋 Eventos registrados", len(eventos))
-c.metric("🔎 Classes detectadas", len(classes))
-d.metric("🎞️ Arquivos disponíveis", len(arquivos))
+a.metric("Vídeos indexados", len(nomes_indexados))
+b.metric("Eventos registrados", len(eventos))
+c.metric("Classes detectadas", len(classes))
+d.metric("Arquivos disponíveis", len(arquivos))
 
 # Mantém a navegação personalizada (sem a navegação automática do Streamlit).
 if pagina == "Visão geral":
