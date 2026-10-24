@@ -152,7 +152,7 @@ streamlit run app.py
 
 Acesse **http://localhost:8501** e use a aba **Vídeos** para enviar uma gravação, testar a detecção e executar a indexação completa.
 
-## 🧠 Como funciona a indexação
+## Como funciona a indexação
 
 1. O **OpenCV** lê os frames do vídeo.
 2. O **YOLO11n** procura pessoas, carros e motocicletas com confiança mínima de **0,40**.
