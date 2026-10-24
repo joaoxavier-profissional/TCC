@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📹 CFTV — Central Inteligente
+# CFTV — Central Inteligente
 
 ### Indexação e recuperação de eventos em vídeos de segurança com visão computacional
 
@@ -19,7 +19,7 @@
 
 ---
 
-## 🎯 Sobre o projeto
+## Sobre o projeto
 
 O **CFTV — Central Inteligente** é um sistema de apoio à análise de gravações de câmeras de segurança. Ele utiliza **YOLO11** e **OpenCV** para identificar classes de objetos em vídeos, agrupa detecções em eventos com intervalos de tempo e permite pesquisá-los e reproduzi-los em uma interface web criada com **Streamlit**.
 
@@ -27,24 +27,24 @@ A proposta é facilitar a localização de trechos relevantes em gravações sem
 
 > **Escopo atual:** detecção das classes **pessoa**, **carro** e **motocicleta** na indexação principal. O diagnóstico rápido também considera **bicicleta**. Os eventos descrevem a presença de uma classe em um intervalo, e **não** o rastreamento de indivíduos.
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 | Módulo | O que oferece |
 | --- | --- |
-| 🏠 **Visão geral** | Indicadores, gravações disponíveis e eventos indexados |
-| 📤 **Upload de vídeos** | Adição de arquivos MP4 à biblioteca local pela interface |
-| 🔎 **Teste rápido de IA** | Análise amostrada de frames com contagens de caixas detectadas, sem alterar o banco |
-| ⚙️ **Indexação completa** | Processamento de gravações com YOLO e gravação de eventos no SQLite |
-| 🔍 **Pesquisa de eventos** | Filtros por objeto, vídeo e intervalo de tempo; opções de ordenação |
-| ▶️ **Player personalizado** | Reprodução a partir do evento, marcações coloridas e legenda na linha do tempo |
-| 📊 **Relatórios** | Gráficos por classe/gravação, tabela e exportação CSV |
-| 🧪 **Testes automatizados** | Cobertura de busca, manipulação de vídeo, streaming, indexação, diagnóstico e upload |
+| **Visão geral** | Indicadores, gravações disponíveis e eventos indexados |
+| **Upload de vídeos** | Adição de arquivos MP4 à biblioteca local pela interface |
+| **Teste rápido de IA** | Análise amostrada de frames com contagens de caixas detectadas, sem alterar o banco |
+| **Indexação completa** | Processamento de gravações com YOLO e gravação de eventos no SQLite |
+| **Pesquisa de eventos** | Filtros por objeto, vídeo e intervalo de tempo; opções de ordenação |
+| **Player personalizado** | Reprodução a partir do evento, marcações coloridas e legenda na linha do tempo |
+| **Relatórios** | Gráficos por classe/gravação, tabela e exportação CSV |
+| **Testes automatizados** | Cobertura de busca, manipulação de vídeo, streaming, indexação, diagnóstico e upload |
 
-## 🧩 Arquitetura
+## Arquitetura
 
 ```mermaid
 flowchart TD
-    A["📹 MP4: arquivo local ou upload"] --> B["OpenCV: leitura de frames"]
+    A["MP4: arquivo local ou upload"] --> B["OpenCV: leitura de frames"]
     B --> C["YOLO11: detecção de objetos"]
     C --> D["Agrupamento temporal por classe"]
     D --> E[("SQLite: eventos indexados")]
@@ -57,7 +57,7 @@ flowchart TD
 O projeto separa **interface** (`views/`), **componentes reutilizáveis** (`components/`) e **regras/serviços** (`services/`), mantendo scripts específicos para indexação e diagnóstico.
 
 <details>
-<summary><strong>📁 Estrutura resumida do repositório</strong></summary>
+<summary><strong>Estrutura resumida do repositório</strong></summary>
 
 ```text
 TCC/
@@ -77,7 +77,7 @@ TCC/
 
 </details>
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 | Tecnologia | Papel |
 | --- | --- |
@@ -90,7 +90,7 @@ TCC/
 | **Pandas** | Tabelas e exportação de resultados |
 | **unittest** | Testes automatizados com a biblioteca padrão do Python |
 
-## 🚀 Como executar
+## Como executar
 
 ### Pré-requisitos
 
@@ -177,7 +177,7 @@ Os testes incluem filtros temporais, ordenação, conversão de horários, solic
 
 > Testes automatizados não substituem a validação visual da interface nem a avaliação de precisão do modelo em vídeos anotados.
 
-## 📚 Documentação técnica
+## Documentação técnica
 
 - [Arquitetura e fundamentos para a defesa](docs/arquitetura-e-defesa.md)
 - [Indexação de múltiplos vídeos](docs/indexacao-multiplos-videos.md)
@@ -185,7 +185,7 @@ Os testes incluem filtros temporais, ordenação, conversão de horários, solic
 - [Diagnóstico de motocicletas](docs/diagnostico-motos.md)
 - [Upload e processamento pela interface](docs/upload-processamento-interface.md)
 
-## 🗺️ Próximas etapas
+## Próximas etapas
 
 - [x] Interface para consulta de eventos e relatórios
 - [x] Reprodução com marcações temporais
@@ -198,7 +198,7 @@ Os testes incluem filtros temporais, ordenação, conversão de horários, solic
 - [ ] Fortalecer a segurança e preparar uma possível implantação em rede
 - [ ] Consolidar experimentos, resultados e documentação acadêmica
 
-## ⚠️ Limitações conhecidas
+## Limitações conhecidas
 
 - O **streaming do player** utiliza um servidor local em `127.0.0.1`, destinado ao navegador no mesmo computador.
 - A aplicação atual é um **protótipo local**, sem autenticação apropriada para exposição pública.
@@ -210,13 +210,13 @@ Os testes incluem filtros temporais, ordenação, conversão de horários, solic
 
 <div align="center">
 
-### 🎓 Trabalho de Conclusão de Curso
+### Trabalho de Conclusão de Curso
 
 **CFTV — Central Inteligente**  
 *Visão computacional aplicada à indexação e recuperação de eventos em gravações de segurança.*
 
-Desenvolvido por [João Xavier](https://github.com/joaoxavier-profissional).
+Desenvolvido por [João Xavier](https://github.com/joaoxavier-profissional) e [Mateus Segur].
 
-⭐ **Acompanhe a evolução do projeto neste repositório.**
+**Acompanhe a evolução do projeto neste repositório.**
 
 </div>
