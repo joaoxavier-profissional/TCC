@@ -1,83 +1,81 @@
-import cv2
-import csv
-from ultralytics import YOLO
+"""Indexa um vídeo MP4 local com YOLO e salva eventos no SQLite.
 
-VIDEO = "videos/teste.mp4"
+Uso: python indexar_video.py teste.mp4
+"""
+import argparse
+from pathlib import Path
 
-model = YOLO("yolo11n.pt")
+from services.config import BANCO, BASE, VIDEOS
+from services.indexacao import agrupar_deteccoes, salvar_eventos
 
-cap = cv2.VideoCapture(VIDEO)
 
-fps = cap.get(cv2.CAP_PROP_FPS)
+CLASSES = {0: "pessoa", 2: "carro", 3: "motocicleta"}
 
-frame_atual = 0
 
-nomes_pt = {
-    0: "pessoa",
-    2: "carro",
-    3: "motocicleta"
-}
+def detectar_video(caminho, modelo):
+    """Extrai classes detectadas por segundo; não altera o banco."""
+    import cv2
 
-# Guarda as classes encontradas em cada segundo
-deteccoes_por_segundo = {}
+    captura = cv2.VideoCapture(str(caminho))
+    if not captura.isOpened():
+        captura.release()
+        raise RuntimeError(f"Não foi possível abrir o vídeo: {caminho.name}")
+    try:
+        fps = captura.get(cv2.CAP_PROP_FPS)
+        if fps <= 0:
+            raise RuntimeError("FPS inválido: não é possível calcular os horários.")
+        deteccoes = set()
+        indice = 0
+        while True:
+            sucesso, frame = captura.read()
+            if not sucesso:
+                break
+            segundo = int(indice / fps)
+            predicao = modelo.predict(
+                frame, classes=list(CLASSES), conf=0.40, verbose=False
+            )[0]
+            for caixa in predicao.boxes:
+                classe_id = int(caixa.cls[0])
+                if classe_id in CLASSES:
+                    deteccoes.add((segundo, CLASSES[classe_id]))
+            indice += 1
+        if indice == 0:
+            raise RuntimeError("Vídeo vazio ou sem frames legíveis.")
+        return sorted(deteccoes)
+    finally:
+        captura.release()
 
-print("Analisando vídeo...")
 
-while True:
-    sucesso, frame = cap.read()
+def main():
+    parser = argparse.ArgumentParser(description="Indexação de gravações CFTV")
+    parser.add_argument("video", help="Nome do MP4 existente na pasta videos/")
+    parser.add_argument("--modelo", default="yolo11n.pt", help="Arquivo .pt local")
+    args = parser.parse_args()
 
-    if not sucesso:
-        break
+    # Evita aceitar caminhos arbitrários fora da pasta videos/.
+    if Path(args.video).name != args.video or not args.video.lower().endswith(".mp4"):
+        parser.error("Informe somente o nome do arquivo MP4, por exemplo teste.mp4.")
+    caminho = (VIDEOS / args.video).resolve()
+    if not caminho.is_file() or caminho.parent != VIDEOS.resolve():
+        parser.error("Vídeo não encontrado na pasta videos/.")
 
-    tempo_segundos = frame_atual / fps
-    segundo = int(tempo_segundos)
+    pesos = Path(args.modelo)
+    if not pesos.is_absolute():
+        pesos = BASE / pesos
+    if not pesos.is_file():
+        parser.error(f"Modelo não encontrado: {pesos}. Não será feito download automático.")
 
-    resultado = model.predict(
-        frame,
-        classes=[0, 2, 3],
-        conf=0.40,
-        verbose=False
-    )[0]
+    from ultralytics import YOLO
 
-    if segundo not in deteccoes_por_segundo:
-        deteccoes_por_segundo[segundo] = set()
+    print(f"Processando {caminho.name} ...")
+    modelo = YOLO(str(pesos))
+    deteccoes = detectar_video(caminho, modelo)
+    eventos = agrupar_deteccoes(deteccoes, tolerancia=2)
+    print(f"Detecções por segundo: {len(deteccoes)} | Eventos: {len(eventos)}")
+    quantidade = salvar_eventos(BANCO, caminho.name, eventos)
+    print(f"Indexação concluída: {quantidade} eventos de {caminho.name} no SQLite.")
+    print("Eventos de outras gravações foram preservados.")
 
-    for caixa in resultado.boxes:
 
-        classe = int(caixa.cls[0])
-
-        if classe in nomes_pt:
-            deteccoes_por_segundo[segundo].add(classe)
-
-    frame_atual += 1
-
-cap.release()
-
-deteccoes = []
-
-for segundo in sorted(deteccoes_por_segundo.keys()):
-
-    horas = segundo // 3600
-    minutos = (segundo % 3600) // 60
-    segundos = segundo % 60
-
-    timestamp = f"{horas:02}:{minutos:02}:{segundos:02}"
-
-    for classe in sorted(deteccoes_por_segundo[segundo]):
-
-        nome = nomes_pt[classe]
-
-        deteccoes.append([timestamp, nome])
-
-        print(f"{timestamp} | {nome}")
-
-with open("deteccoes.csv", "w", newline="", encoding="utf-8") as arquivo:
-
-    escritor = csv.writer(arquivo)
-
-    escritor.writerow(["timestamp", "classe"])
-    escritor.writerows(deteccoes)
-
-print()
-print("Processamento concluído.")
-print("Arquivo deteccoes.csv criado.")
+if __name__ == "__main__":
+    main()

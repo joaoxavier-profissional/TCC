@@ -44,6 +44,9 @@ for classe, segundos in deteccoes_por_classe.items():
 
     segundos = sorted(set(segundos))
 
+    if not segundos:
+        continue
+
     inicio = segundos[0]
     ultimo = segundos[0]
 

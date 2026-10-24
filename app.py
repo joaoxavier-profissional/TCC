@@ -40,6 +40,8 @@ for chave, padrao in {
 eventos, erro = carregar_eventos()
 arquivos = listar_videos()
 nomes_indexados = sorted({evento[0] for evento in eventos})
+# Inclui também os MP4 locais sem eventos indexados.
+nomes_gravacoes = sorted(set(nomes_indexados) | {arquivo.name for arquivo in arquivos})
 classes = sorted({evento[1] for evento in eventos})
 
 mostrar_sidebar(erro)
@@ -62,7 +64,7 @@ d.metric("🎞️ Arquivos disponíveis", len(arquivos))
 if pagina == "Visão geral":
     mostrar_visao_geral(eventos, arquivos)
 elif pagina == "Buscar eventos":
-    mostrar_busca(eventos, classes, nomes_indexados)
+    mostrar_busca(eventos, classes, nomes_gravacoes)
 elif pagina == "Vídeos":
     mostrar_pagina_videos(arquivos)
 elif pagina == "Relatórios":

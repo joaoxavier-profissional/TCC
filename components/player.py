@@ -1,10 +1,10 @@
 
-import base64
 import html
 import json
 from pathlib import Path
 
 import streamlit.components.v1 as components
+from services.video_stream import url_video
 
 
 CAMINHO_CSS = (
@@ -51,9 +51,8 @@ def mostrar_player(caminho_video, inicio=0, eventos=None):
     if not caminho.is_file():
         return False
 
-    # Incorpora o vídeo no HTML (adequado para testes pequenos).
-    dados = base64.b64encode(caminho.read_bytes()).decode("ascii")
-    video_src = f"data:video/mp4;base64,{dados}"
+    # O navegador busca apenas os trechos necessários (HTTP Range).
+    video_src = html.escape(url_video(caminho), quote=True)
 
     nome = html.escape(caminho.name)
     css_player = CAMINHO_CSS.read_text(encoding="utf-8")
