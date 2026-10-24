@@ -1,5 +1,6 @@
 """Testes do agrupamento temporal e da persistência SQLite por vídeo."""
 import sqlite3
+from contextlib import closing
 import tempfile
 import unittest
 from pathlib import Path
@@ -35,7 +36,7 @@ class TestBanco(unittest.TestCase):
         self.banco = Path(self.tmp.name) / "testes.db"
 
     def consultar(self):
-        with sqlite3.connect(self.banco) as con:
+        with closing(sqlite3.connect(self.banco)) as con:
             return con.execute(
                 "SELECT video, classe, inicio, fim FROM eventos ORDER BY video, inicio"
             ).fetchall()
