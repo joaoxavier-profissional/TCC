@@ -62,6 +62,7 @@ def _modal_video():
                 st.error(f"Falha ao adicionar gravação: {erro}")
             else:
                 st.session_state["modal_video_selecionado"] = destino.name
+                st.session_state["modal_gravacao_processamento"] = destino.name
                 st.session_state["modal_video_adicionado"] = (
                     f"{destino.name} foi adicionado à biblioteca."
                 )
