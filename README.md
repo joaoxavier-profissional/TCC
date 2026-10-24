@@ -165,7 +165,7 @@ Acesse **http://localhost:8501** e use a aba **Vídeos** para enviar uma gravaç
 
 O **teste rápido**, por sua vez, amostra aproximadamente **1 frame/segundo durante os primeiros 30 segundos** e usa confiança mínima **0,10** para investigar classes. Esse teste **não modifica** o banco e **não mede sozinho precisão ou recall**.
 
-## 🧪 Testes
+## Testes
 
 Com o ambiente ativado:
 
