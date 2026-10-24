@@ -154,27 +154,22 @@ def _modal_video():
         st.rerun()
 
 
+def mostrar_botao_adicionar_video():
+    """Botão compacto de acesso ao modal, exibido no cabeçalho da página."""
+    if st.button(
+        "➕ Adicionar vídeo MP4",
+        type="primary",
+        use_container_width=True,
+        key="abrir_modal_video",
+    ):
+        _modal_video()
+
+
 def mostrar_pagina_videos(arquivos):
-    """Exibe uma biblioteca limpa com o fluxo operacional em um modal."""
-    st.subheader("Biblioteca de gravações")
-    st.caption(
-        "Gerencie suas gravações MP4 e execute a análise por inteligência artificial."
-    )
-
-    col_acao, _ = st.columns([1, 2])
-    with col_acao:
-        if st.button(
-            "➕ Adicionar vídeo MP4",
-            type="primary",
-            use_container_width=True,
-            key="abrir_modal_video",
-        ):
-            _modal_video()
-
+    """Exibe somente a biblioteca: ações de upload ficam no cabeçalho."""
     if aviso := st.session_state.pop("aviso_video", None):
         st.success(aviso)
 
-    st.divider()
     arquivos = listar_videos()
     if arquivos:
         colunas = st.columns(3)
