@@ -18,7 +18,7 @@ def mostrar_visao_geral(eventos, arquivos):
             with colunas[i % 3]:
                 with st.container(border=True):
                     st.markdown(f'**{classe.capitalize()}**')
-                    st.caption(f'🎞️ {video}')
-                    st.caption(f'⏱️ {inicio} até {fim}')
+                    st.caption(f'{video}')
+                    st.caption(f'{inicio} até {fim}')
     else:
         st.info('Nenhum evento cadastrado.')
