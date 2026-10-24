@@ -22,3 +22,5 @@ videos/
 app_backup.py
 teste_player_personalizado.py
 LEIA_ME.txt
+# Saídas locais do diagnóstico YOLO
+diagnosticos/
