@@ -4,14 +4,14 @@ import streamlit as st
 def mostrar_sidebar(erro):
     with st.sidebar:
         with st.container(key='sidebar_logo'):
-            st.title('📹 CFTV')
+            st.title('CFTV')
             st.caption('CENTRAL INTELIGENTE')
             st.divider()
         with st.container(key='sidebar_menu'):
-            paginas = [('🏠', 'Visão geral'), ('🔎', 'Buscar eventos'), ('🎞️', 'Vídeos'), ('📊', 'Relatórios')]
-            for icone, nome in paginas:
+            paginas = ['Visão geral', 'Buscar eventos', 'Vídeos', 'Relatórios']
+            for nome in paginas:
                 ativo = st.session_state.pagina == nome
-                if st.button(f'{icone}  {nome}', key=f'menu_{nome}', type='primary' if ativo else 'secondary', use_container_width=True):
+                if st.button(nome, key=f'menu_{nome}', type='primary' if ativo else 'secondary', use_container_width=True):
                     st.session_state.pagina = nome
                     st.rerun()
         with st.container(key='sidebar_status'):

@@ -1,6 +1,6 @@
 # Interface de upload e processamento
 
-Esta etapa adiciona funções à página **Vídeos** do Streamlit.
+A página **Vídeos** apresenta a biblioteca e um botão **Adicionar vídeo MP4**. Ao clicar, abre-se um modal criado com `st.dialog` (largura ampla) com o fluxo completo de upload, diagnóstico e indexação. O modal pode ser fechado com o X ou com o botão **Concluir e voltar à biblioteca**.
 
 ## Operações
 
@@ -18,7 +18,7 @@ python -m unittest discover -s tests -p "test_*.py" -v
 streamlit run app.py
 ```
 
-Abra **Vídeos** no menu. Faça backup de `cftv.db` antes de realizar a primeira indexação pela interface. O arquivo `yolo11n.pt` deve existir na raiz; nenhum download automático é feito por esse fluxo.
+Abra **Vídeos** no menu e clique em **Adicionar vídeo MP4**. Ao concluir o envio, o modal permanece aberto e seleciona automaticamente a nova gravação para teste ou indexação. Ao concluir a indexação, o modal fecha e os indicadores são atualizados. Faça backup de `cftv.db` antes de realizar a primeira indexação pela interface. O arquivo `yolo11n.pt` deve existir na raiz; nenhum download automático é feito por esse fluxo.
 
 **Testes automatizados:** foram adicionados cinco testes de upload; não demonstram execução visual do Streamlit nem eficácia da detecção YOLO.
 

@@ -24,5 +24,5 @@ def mostrar_relatorios(eventos):
         st.subheader('Eventos registrados')
         tabela = pd.DataFrame(eventos, columns=['Vídeo', 'Classe', 'Início', 'Fim'])
         st.dataframe(tabela, use_container_width=True, hide_index=True)
-        st.download_button('⬇️ Exportar eventos para CSV', data=tabela.to_csv(index=False).encode('utf-8-sig'), file_name='relatorio_eventos_cftv.csv', mime='text/csv')
+        st.download_button('Exportar eventos para CSV', data=tabela.to_csv(index=False).encode('utf-8-sig'), file_name='relatorio_eventos_cftv.csv', mime='text/csv')
         st.caption('Relatórios calculados a partir dos eventos armazenados no SQLite.')
