@@ -8,7 +8,7 @@ import streamlit as st
 from components.sidebar import mostrar_sidebar
 from views.visao_geral import mostrar_visao_geral
 from views.buscar_eventos import mostrar_busca
-from views.videos import mostrar_pagina_videos
+from views.videos import mostrar_pagina_videos, mostrar_botao_adicionar_video
 from views.relatorios import mostrar_relatorios
 from services.banco import carregar_eventos
 from services.video import listar_videos
@@ -46,8 +46,17 @@ classes = sorted({evento[1] for evento in eventos})
 
 mostrar_sidebar(erro)
 pagina = st.session_state.pagina
-st.title(pagina)
-st.caption("Sistema inteligente de indexação e recuperação de eventos em gravações de CFTV")
+if pagina == "Vídeos":
+    # Ação compacta no topo, antes dos indicadores, sem bloco separado.
+    coluna_titulo, coluna_acao = st.columns([4, 1.15], vertical_alignment="bottom")
+    with coluna_titulo:
+        st.title(pagina)
+        st.caption("Sistema inteligente de indexação e recuperação de eventos em gravações de CFTV")
+    with coluna_acao:
+        mostrar_botao_adicionar_video()
+else:
+    st.title(pagina)
+    st.caption("Sistema inteligente de indexação e recuperação de eventos em gravações de CFTV")
 
 if erro:
     st.error(erro)
