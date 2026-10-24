@@ -102,7 +102,7 @@ def mostrar_player(caminho_video, inicio=0, eventos=None):
             <source src="__VIDEO_SRC__" type="video/mp4">
         </video>
 
-        <div class="titulo">__NOME__</div>
+        <div class="titulo">📹 __NOME__</div>
 
         <div class="controles">
             <div class="legenda-eventos" id="legenda-eventos"></div>
@@ -127,7 +127,7 @@ def mostrar_player(caminho_video, inicio=0, eventos=None):
             </div>
 
             <div class="botoes">
-                <button id="play" title="Reproduzir">Reproduzir</button>
+                <button id="play" title="Reproduzir">▶</button>
 
                 <span class="tempo" id="tempo">
                     00:00 / 00:00
@@ -136,7 +136,7 @@ def mostrar_player(caminho_video, inicio=0, eventos=None):
                 <span class="espaco"></span>
 
                 <button id="fullscreen" title="Tela cheia">
-                    Tela cheia
+                    ⛶
                 </button>
             </div>
         </div>
@@ -290,11 +290,11 @@ def mostrar_player(caminho_video, inicio=0, eventos=None):
         video.addEventListener("timeupdate", atualizarInterface);
 
         video.addEventListener("play", () => {
-            play.textContent = "Pausar";
+            play.textContent = "❚❚";
         });
 
         video.addEventListener("pause", () => {
-            play.textContent = "Reproduzir";
+            play.textContent = "▶";
         });
 
         play.addEventListener("click", () => {
