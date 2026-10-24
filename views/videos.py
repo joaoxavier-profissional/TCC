@@ -1,6 +1,5 @@
 """Biblioteca, upload e processamento local de vídeos pela interface."""
-from collections import Counter
-from pathlib import Path
+import sqlite3
 
 import streamlit as st
 
@@ -40,7 +39,7 @@ def mostrar_pagina_videos(arquivos):
                 import cv2
                 captura = cv2.VideoCapture(str(destino))
                 try:
-                    valido = captura.isOpened() and captura.get(cv2.CAP_PROP_FRAME_COUNT) > 0
+                    valido = captura.isOpened() and captura.read()[0]
                 finally:
                     captura.release()
                 if not valido:
@@ -84,7 +83,7 @@ def mostrar_pagina_videos(arquivos):
                     )
                 else:
                     st.warning("Nenhum frame legível no trecho examinado.")
-            except (OSError, RuntimeError, ValueError) as erro:
+            except (OSError, RuntimeError, ValueError, sqlite3.Error) as erro:
                 st.error(f"Falha no diagnóstico: {erro}")
 
         st.markdown("**Indexação completa — atualiza os eventos deste vídeo**")
