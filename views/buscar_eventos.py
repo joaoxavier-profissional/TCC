@@ -105,7 +105,7 @@ def _painel_resultados(resultados):
 
 
 
-def mostrar_busca(eventos, classes, nomes_indexados):
+def mostrar_busca(eventos, classes, nomes_gravacoes):
     st.subheader("Pesquisar detecções")
     st.caption("Os horários são relativos ao início de cada gravação (HH:MM:SS).")
 
@@ -114,7 +114,7 @@ def mostrar_busca(eventos, classes, nomes_indexados):
         with filtro1:
             classe_filtro = st.selectbox("Tipo de objeto", ["Todas"] + classes)
         with filtro2:
-            video_filtro = st.selectbox("Gravação", ["Todos"] + nomes_indexados)
+            video_filtro = st.selectbox("Gravação", ["Todos"] + nomes_gravacoes)
 
         usar_intervalo = st.checkbox("Filtrar por intervalo de tempo")
         tempo1, tempo2, ordem = st.columns([1, 1, 1.2])
@@ -144,6 +144,9 @@ def mostrar_busca(eventos, classes, nomes_indexados):
     if resultados is None:
         st.info("Escolha os filtros e clique em Pesquisar.")
         return
+
+    if not resultados and video_filtro != "Todos" and not any(e[0] == video_filtro for e in eventos):
+        st.info("Esta gravação está disponível, mas ainda não possui eventos indexados.")
 
     total_videos = len({e[0] for e in resultados})
     a, b = st.columns(2)
