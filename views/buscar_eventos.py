@@ -46,7 +46,7 @@ def _painel_resultados(resultados):
 
                     with botao:
                         if st.button(
-                            "▶",
+                            "Ver",
                             key=f"evento_{i}",
                             help="Assistir ao evento"
                         ):
@@ -91,7 +91,7 @@ def _painel_resultados(resultados):
                 )
 
             st.caption(
-                f"🎞️ {video} | "
+                f"{video} | "
                 f"{classe.capitalize()} | "
                 f"{inicio} até {fim}"
             )
@@ -124,7 +124,7 @@ def mostrar_busca(eventos, classes, nomes_gravacoes):
             fim_texto = st.text_input("Até (HH:MM:SS)", value="00:01:00", disabled=not usar_intervalo)
         with ordem:
             ordenacao = st.selectbox("Ordenar por", ["Horário (crescente)", "Horário (decrescente)", "Classe (A–Z)", "Gravação (A–Z)"])
-        pesquisar = st.form_submit_button("🔎 Pesquisar", type="primary", use_container_width=True)
+        pesquisar = st.form_submit_button("Pesquisar", type="primary", use_container_width=True)
 
     if pesquisar:
         from services.video import segundos
