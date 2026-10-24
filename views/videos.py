@@ -25,7 +25,7 @@ def _modelo():
     return _modelo_local(str(pesos))
 
 
-@st.dialog("📹 Adicionar e processar gravação", width="large")
+@st.dialog("Adicionar e processar gravação", width="large")
 def _modal_video():
     """Upload, diagnóstico e indexação em um único modal.
 
@@ -91,7 +91,7 @@ def _modal_video():
     )
     caminho = VIDEOS / nome
 
-    with st.expander("🔎 Diagnóstico rápido (não altera o SQLite)", expanded=True):
+    with st.expander("Diagnóstico rápido (não altera o SQLite)", expanded=True):
         st.caption(
             "Amostra aproximadamente 1 frame por segundo nos primeiros 30 segundos "
             "com confiança de 10%. Inclui bicicleta para investigar possíveis "
@@ -117,7 +117,7 @@ def _modal_video():
             except (OSError, RuntimeError, ValueError) as erro:
                 st.error(f"Falha no teste: {erro}")
 
-    with st.expander("⚙️ Indexação completa", expanded=False):
+    with st.expander("Indexação completa", expanded=False):
         st.caption(
             "Analisa todos os frames com confiança de 40% e atualiza somente "
             "os eventos deste vídeo no SQLite. Os eventos de outros vídeos "
@@ -157,7 +157,7 @@ def _modal_video():
 def mostrar_botao_adicionar_video():
     """Botão compacto de acesso ao modal, exibido no cabeçalho da página."""
     if st.button(
-        "➕ Adicionar vídeo MP4",
+        "Adicionar vídeo MP4",
         type="primary",
         use_container_width=True,
         key="abrir_modal_video",
