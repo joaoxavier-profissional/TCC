@@ -1,5 +1,6 @@
 """Regras de agrupamento e persistência de detecções, independentes do YOLO."""
 import sqlite3
+from contextlib import closing
 from collections import defaultdict
 from pathlib import Path
 
@@ -47,7 +48,9 @@ def salvar_eventos(banco, nome_video, eventos):
     if not nome or nome in (".", "..") or not nome.lower().endswith(".mp4"):
         raise ValueError("Nome de vídeo MP4 inválido.")
     registros = [(nome, classe, inicio, fim) for classe, inicio, fim in eventos]
-    with sqlite3.connect(banco) as con:
+    # O contexto do sqlite3 cuida da transação, mas NÃO fecha a conexão.
+    # closing garante o fechamento também quando há exceções (Windows).
+    with closing(sqlite3.connect(banco)) as con:
         with con:
             con.execute("""
                 CREATE TABLE IF NOT EXISTS eventos (
